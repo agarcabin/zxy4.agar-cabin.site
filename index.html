@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>祝新宇 ❤ 周嘉涛 · 四周年快乐</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #f06292 100%);
+    background-attachment: fixed;
+    font-family: "STZhongsong", "Noto Serif SC", "SimSun", "KaiTi", serif;
+    overflow-x: hidden;
+    cursor: default;
+    user-select: none;
+  }
+
+  /* ==================== 粒子画布 ==================== */
+  #particles {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ==================== 欢迎页（跳动爱心） ==================== */
+  #landing {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 200;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #f06292 100%);
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+  #landing.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .landing-heart {
+    font-size: 120px;
+    cursor: pointer;
+    animation: heartbeat 0.8s ease-in-out infinite;
+    transition: transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .landing-heart:hover {
+    animation: heartbeat 0.5s ease-in-out infinite;
+  }
+  .landing-heart.burst {
+    animation: heartBurst 0.8s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    56% { transform: scale(1); }
+  }
+  @keyframes heartBurst {
+    0%   { transform: scale(1);   opacity: 1; }
+    30%  { transform: scale(1.8); opacity: 1; }
+    100% { transform: scale(3);   opacity: 0; }
+  }
+
+  .landing-title {
+    font-size: 28px; color: #d81b60;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .landing-sub {
+    font-size: 13px; color: #ad1457;
+    letter-spacing: 3px;
+    margin-top: 10px;
+    opacity: 0.7;
+    transition: opacity 0.6s ease;
+  }
+  .landing-days {
+    font-size: 15px; color: #c62828;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    opacity: 0.85;
+    transition: opacity 0.6s ease;
+  }
+  .landing-days span {
+    font-size: 22px; font-weight: bold;
+    color: #e91e63;
+  }
+
+  /* 文字消失（伴随爱心爆破） */
+  #landing.fade-out .landing-title,
+  #landing.fade-out .landing-sub,
+  #landing.fade-out .landing-days {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  /* ==================== 主信封 ==================== */
+  #mainContent {
+    display: none;
+  }
+  #mainContent.visible {
+    display: block;
+  }
+
+  .container {
+    position: relative; z-index: 1;
+    max-width: 700px; margin: 0 auto; padding: 20px 20px 60px;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 60px rgba(244,143,177,0.3), 0 0 80px rgba(255,255,255,0.4) inset;
+    text-align: center;
+    width: 100%;
+    animation: floatIn 1.2s ease-out;
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(60px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ---- 标题 ---- */
+  .title-hearts {
+    font-size: 40px; margin-bottom: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%     { transform: scale(1.15); }
+  }
+
+  .title {
+    font-size: 28px; color: #d81b60;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 16px; color: #ad1457;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+
+  /* ---- 打字效果 ---- */
+  .typewriter-wrapper {
+    min-height: 200px; display: flex; align-items: center; justify-content: center;
+    margin: 20px 0 30px;
+  }
+  .typewriter {
+    font-size: 20px; color: #5d2545; line-height: 2;
+    text-align: center;
+  }
+  .typewriter .cursor {
+    display: inline-block; width: 2px; height: 24px;
+    background: #d81b60; vertical-align: text-bottom;
+    animation: blink 0.7s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* ---- 按钮区 ---- */
+  .btns {
+    display: flex; gap: 30px; justify-content: center;
+    flex-wrap: wrap; margin-top: 10px;
+  }
+  .btn {
+    padding: 14px 44px; font-size: 20px;
+    border-radius: 50px; border: none;
+    cursor: pointer;
+    letter-spacing: 3px;
+    font-family: inherit;
+    position: relative;
+  }
+  .btn-yes {
+    background: linear-gradient(135deg, #e91e63, #c62828);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(233,30,99,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-yes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 35px rgba(233,30,99,0.5);
+  }
+  .btn-yes:active { transform: translateY(0); }
+
+  .btn-no {
+    background: rgba(255,255,255,0.6);
+    color: #999;
+    border: 2px solid #ddd;
+    /* 逃跑后由 JS 开启 left/top 的过渡动画 */
+  }
+
+  /* 逃跑按钮：首次捕获后启动平移动画 */
+  .btn-no.fleeing {
+    transition: left 0.25s ease-out, top 0.25s ease-out,
+                color 0.3s ease, border-color 0.3s ease,
+                font-size 0.3s ease, padding 0.3s ease;
+  }
+
+  /* ==================== 成功弹窗 ==================== */
+  .overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center;
+    z-index: 100;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .overlay.show { display: flex; }
+
+  .success-card {
+    position: relative;          /* 让子元素 offsetTop 以卡片为基准 */
+    background: #fff; border-radius: 24px;
+    padding: 40px 36px; text-align: center;
+    max-width: 440px; width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .success-card::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  @keyframes popIn {
+    from { transform: scale(0.3); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  .success-emoji {
+    font-size: 60px; animation: bounce 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-16px); }
+  }
+  .success-title {
+    font-size: 28px; color: #d81b60;
+    margin: 16px 0 8px;
+    letter-spacing: 3px;
+  }
+  .success-sub {
+    font-size: 16px; color: #666;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .success-names {
+    font-size: 18px; color: #c62828;
+    margin-bottom: 20px; letter-spacing: 4px;
+  }
+
+  /* 合影照片区域 */
+  .photo-section-title {
+    font-size: 18px; color: #d81b60;
+    letter-spacing: 4px;
+    margin-bottom: 18px;
+  }
+  .photo-orbit-area {
+    position: relative;
+    width: 340px; height: 340px;
+    margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo-frame {
+    position: relative; z-index: 1;
+    width: 100%;
+    max-width: 280px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(233,30,99,0.25);
+    border: 3px solid #f8bbd0;
+    animation: photoHeartbeat 1.2s ease-in-out infinite;
+  }
+  @keyframes photoHeartbeat {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.06); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.06); }
+    56%      { transform: scale(1); }
+  }
+  .photo-frame img {
+    width: 100%; height: auto;
+    display: block;
+  }
+
+  /* 环绕爱心 */
+  .orbit-heart {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 32px; height: 32px;
+    margin-left: -16px; margin-top: -16px;
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 2;
+    animation: orbitHeart 10s linear infinite;
+  }
+  .orbit-heart:nth-child(2)  { animation-delay: -1.67s; }
+  .orbit-heart:nth-child(3)  { animation-delay: -3.33s; }
+  .orbit-heart:nth-child(4)  { animation-delay: -5.00s; }
+  .orbit-heart:nth-child(5)  { animation-delay: -6.67s; }
+  .orbit-heart:nth-child(6)  { animation-delay: -8.33s; }
+
+  @keyframes orbitHeart {
+    0%   { transform: rotate(0deg)   translateX(155px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(155px) rotate(-360deg); }
+  }
+
+  .photo-caption {
+    font-size: 13px; color: #ad1457;
+    margin-top: 18px;
+    letter-spacing: 3px;
+  }
+  .success-date {
+    text-align: right;
+    font-size: 12px; color: #bbb;
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+
+  /* ==================== 音乐按钮 ==================== */
+  .music-btn {
+    position: fixed; bottom: 24px; right: 24px;
+    z-index: 150;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(233,30,99,0.4);
+    background: rgba(255,255,255,0.8);
+    cursor: pointer;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233,30,99,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .music-btn:hover {
+    background: rgba(255,255,255,0.95);
+    border-color: #e91e63;
+    transform: scale(1.1);
+  }
+  .music-btn.off { opacity: 0.5; }
+
+  /* ==================== 底部 ==================== */
+  .footer {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    z-index: 10;
+    text-align: center; color: rgba(255,255,255,0.85);
+    font-size: 13px; padding: 16px;
+    letter-spacing: 2px;
+    background: linear-gradient(transparent, rgba(240,98,146,0.3));
+    pointer-events: none;
+  }
+
+  /* ==================== 点击爱心特效 ==================== */
+  .click-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 24px;
+    animation: clickHeartFloat 1.2s ease-out forwards;
+  }
+  @keyframes clickHeartFloat {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    50%  { opacity: 0.8; transform: translateY(-40px) scale(1.3); }
+    100% { opacity: 0; transform: translateY(-90px) scale(0.5); }
+  }
+
+  /* ==================== 响应式 ==================== */
+  @media (max-width: 480px) {
+    .card { padding: 30px 20px; }
+    .title { font-size: 22px; }
+    .typewriter { font-size: 16px; }
+    .btn { padding: 12px 30px; font-size: 16px; }
+    .btns { gap: 16px; }
+    .btn-no.fleeing { font-size: 14px !important; padding: 10px 18px !important; }
+    .landing-heart { font-size: 80px; }
+    .landing-title { font-size: 22px; }
+    .success-card { padding: 30px 20px; }
+    .success-title { font-size: 24px; }
+    .photo-orbit-area { width: 260px; height: 260px; }
+    .photo-frame { max-width: 210px; }
+    @keyframes orbitHeart {
+      0%   { transform: rotate(0deg)   translateX(115px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(115px) rotate(-360deg); }
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- 粒子画布（始终运行） -->
+<canvas id="particles"></canvas>
+
+<!-- ==================== 欢迎页 ==================== -->
+<div id="landing">
+  <p class="landing-title">💕 四周年快乐 💕</p>
+  <div class="landing-heart" id="landingHeart" onclick="openEnvelope()">❤️</div>
+  <p class="landing-sub">点击爱心，查收我的心意</p>
+  <p class="landing-days">已为你跳动 <span id="daysCount">0</span> 天</p>
+</div>
+
+<!-- ==================== 主内容（初始隐藏） ==================== -->
+<div id="mainContent">
+  <div class="container">
+    <div class="card">
+      <div class="title-hearts">💗</div>
+      <h1 class="title">祝新宇 ❤ 周嘉涛</h1>
+      <p class="subtitle">—— 四周年纪念日 ——</p>
+
+      <div class="typewriter-wrapper">
+        <p class="typewriter" id="typewriter"></p>
+      </div>
+
+      <div class="btns" id="btns">
+        <button class="btn btn-yes" onclick="sayYes()">永远爱你 💕</button>
+        <button class="btn btn-no" id="btnNo" onmouseenter="runAway()">我再考虑考虑</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">💕 祝新宇 &amp; 周嘉涛 · 四周年快乐，余生请多指教 💕</div>
+</div>
+
+<!-- ==================== 音乐按钮 ==================== -->
+<button class="music-btn off" id="musicBtn" onclick="toggleMusic()" title="开启音乐">🎵</button>
+
+<!-- ==================== 成功弹窗 ==================== -->
+<div class="overlay" id="overlay">
+  <div class="success-card">
+    <div class="success-emoji">💕</div>
+    <h2 class="success-title">四周年快乐</h2>
+    <p class="success-sub">
+      亲爱的周先生，<br>
+      在一起的第四年，谢谢你给我那么多美好的回忆。<br>
+      从陌生到熟悉，从喜欢到深爱，<br>
+      每一步都因为有你而变得特别。<br>
+      愿未来的每一个一年，<br>
+      我们都能牵手一起走。
+    </p>
+    <p class="success-names">—— 祝新宇 &amp; 周嘉涛 ——</p>
+    <p class="photo-section-title">💕 最喜欢你的人： 💕</p>
+    <div class="photo-orbit-area">
+      <span class="orbit-heart">💖</span>
+      <span class="orbit-heart">💗</span>
+      <span class="orbit-heart">💕</span>
+      <span class="orbit-heart">💓</span>
+      <span class="orbit-heart">💝</span>
+      <span class="orbit-heart">💗</span>
+      <div class="photo-frame">
+        <img src="1.jpg" alt="我们的合影" onerror="if(this.src.indexOf('1.jpg')>-1)this.src='1.png';else this.closest('.photo-orbit-area').style.display='none'">
+      </div>
+    </div>
+    <p class="photo-caption">💕 四年的甜蜜，一生的承诺 💕</p>
+    <p class="success-date" id="successDate"></p>
+  </div>
+</div>
+
+<script>
+// ==================== 欢迎页：跳动天数 ====================
+(function() {
+  var start = new Date(2022, 4, 11); // 2022-05-11（月份从0开始）
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  if (diff < 0) diff = 0;
+  document.getElementById('daysCount').textContent = diff;
+})();
+
+// ==================== 粒子系统 ====================
+var canvas = document.getElementById('particles');
+var ctx = canvas.getContext('2d');
+
+var W, H;
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+var petals = [];
+var hearts = [];
+
+function createPetal() {
+  return {
+    x: Math.random() * W, y: -20,
+    size: 12 + Math.random() * 18,
+    speedY: 0.8 + Math.random() * 1.8,
+    speedX: -0.4 + Math.random() * 0.8,
+    rotation: Math.random() * Math.PI * 2,
+    rotSpeed: (Math.random() - 0.5) * 0.03,
+    opacity: 0.6 + Math.random() * 0.4,
+    color: ['#f8bbd0','#f48fb1','#f06292','#e91e63','#ffcdd2'][Math.floor(Math.random()*5)],
+  };
+}
+
+function createHeart() {
+  return {
+    x: Math.random() * W, y: -20,
+    size: 10 + Math.random() * 16,
+    speedY: 0.6 + Math.random() * 1.4,
+    speedX: -0.3 + Math.random() * 0.6,
+    opacity: 0.5 + Math.random() * 0.5,
+  };
+}
+
+for (var i = 0; i < 30; i++) { var p = createPetal(); p.y = Math.random() * H; petals.push(p); }
+for (var i = 0; i < 15; i++) { var h = createHeart(); h.y = Math.random() * H; hearts.push(h); }
+
+function drawPetal(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rotation);
+  ctx.globalAlpha = p.opacity;
+  ctx.fillStyle = p.color;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, p.size * 0.35, p.size * 0.6, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawHeartShape(cx, cy, size) {
+  ctx.beginPath();
+  var s = size * 0.5;
+  ctx.moveTo(cx, cy + s * 0.6);
+  ctx.bezierCurveTo(cx, cy, cx - s, cy - s * 0.2, cx - s, cy - s * 0.5);
+  ctx.bezierCurveTo(cx - s, cy - s * 1.1, cx, cy - s * 1.1, cx, cy - s * 0.5);
+  ctx.bezierCurveTo(cx, cy - s * 1.1, cx + s, cy - s * 1.1, cx + s, cy - s * 0.5);
+  ctx.bezierCurveTo(cx + s, cy - s * 0.2, cx, cy, cx, cy + s * 0.6);
+  ctx.closePath();
+}
+
+function drawHeart(h) {
+  ctx.save();
+  ctx.globalAlpha = h.opacity;
+  ctx.fillStyle = '#e91e63';
+  drawHeartShape(h.x, h.y, h.size);
+  ctx.fill();
+  ctx.restore();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  for (var i = 0; i < petals.length; i++) {
+    var p = petals[i];
+    p.y += p.speedY; p.x += p.speedX; p.rotation += p.rotSpeed;
+    drawPetal(p);
+    if (p.y > H + 30) { p.y = -30; p.x = Math.random() * W; }
+    if (p.x < -30) p.x = W + 30;
+    if (p.x > W + 30) p.x = -30;
+  }
+  for (var i = 0; i < hearts.length; i++) {
+    var h = hearts[i];
+    h.y += h.speedY; h.x += h.speedX;
+    drawHeart(h);
+    if (h.y > H + 30) { h.y = -30; h.x = Math.random() * W; }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+setInterval(function() {
+  if (petals.length < 50) petals.push(createPetal());
+  if (hearts.length < 25) hearts.push(createHeart());
+}, 3000);
+
+// ==================== 打开信封 ====================
+function openEnvelope() {
+  var landing = document.getElementById('landing');
+  var heartEl = document.getElementById('landingHeart');
+  var mainContent = document.getElementById('mainContent');
+
+  // 爱心爆破动画
+  heartEl.classList.add('burst');
+
+  // 同时淡出整个欢迎页
+  setTimeout(function() {
+    landing.classList.add('fade-out');
+  }, 100);
+
+  // 爆破结束后显示主内容
+  setTimeout(function() {
+    mainContent.classList.add('visible');
+    // 启动打字机
+    setTimeout(typeLoop, 400);
+  }, 700);
+}
+
+// ==================== 打字机效果（最后一条停止） ====================
+var messages = [
+  "亲爱的周嘉涛……",
+  "一转眼，我们已经在一起整整四年了。",
+  "这一年里，有你陪伴的每一天，",
+  "都像是被阳光吻过的晴天。",
+  "你的温柔，是我最安心的港湾。",
+  "你的笑容，是我最想守护的宝藏。",
+  "和你在一起的每一个瞬间，",
+  "都让我觉得，遇见你是我这辈子最大的幸运。",
+  "从初见到相知，从相恋到相守，",
+  "谢谢你一直在我身边。",
+  "未来的每一个春夏秋冬，",
+  "我都想和你一起度过。",
+  "所以今天，我想对你说……",
+  "四周年快乐，我的周先生。"
+];
+
+var typewriterEl = document.getElementById('typewriter');
+var cursorHtml = '<span class="cursor"></span>';
+
+var msgIdx = 0;
+var charIdx = 0;
+var isDeleting = false;
+var finished = false;
+
+function typeLoop() {
+  if (finished) {
+    typewriterEl.innerHTML = messages[messages.length - 1] + cursorHtml;
+    return;
+  }
+
+  var full = messages[msgIdx];
+
+  if (!isDeleting) {
+    charIdx++;
+    var current = full.substring(0, charIdx);
+    typewriterEl.innerHTML = current + cursorHtml;
+
+    if (charIdx >= full.length) {
+      if (msgIdx === messages.length - 1) {
+        finished = true;
+        typewriterEl.innerHTML = full + cursorHtml;
+        return;
+      }
+      isDeleting = true;
+      setTimeout(typeLoop, 1500);
+      return;
+    }
+    setTimeout(typeLoop, 60 + Math.random() * 40);
+  } else {
+    charIdx--;
+    var currentDel = full.substring(0, charIdx);
+    typewriterEl.innerHTML = currentDel + cursorHtml;
+
+    if (charIdx <= 0) {
+      isDeleting = false;
+      msgIdx++;
+      setTimeout(typeLoop, 400);
+      return;
+    }
+    setTimeout(typeLoop, 25);
+  }
+}
+
+// ==================== 逃跑按钮（平滑过渡 + 不越界） ====================
+var btnNo = document.getElementById('btnNo');
+var runawayCount = 0;
+var btnNoFleeing = false;
+
+function runAway() {
+  runawayCount++;
+
+  if (!btnNoFleeing) {
+    btnNoFleeing = true;
+
+    // 卡片收缩动画：先锁高度，按钮脱离流后平滑缩小
+    var card = document.querySelector('.card');
+    var cardH1 = card.offsetHeight;
+    card.style.minHeight = cardH1 + 'px';
+    card.style.transition = 'min-height 0.45s ease';
+
+    // 先获取按钮当前在视口中的位置
+    var rect = btnNo.getBoundingClientRect();
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = rect.left + 'px';
+    btnNo.style.top  = rect.top + 'px';
+    btnNo.style.zIndex = '999';
+    btnNo.offsetHeight; // 触发 reflow
+    btnNo.classList.add('fleeing');
+
+    // 启动卡片收缩（先测量自然高度，再恢复后动画）
+    requestAnimationFrame(function() {
+      // 暂时解除 min-height 以获取按钮脱离流后的真实高度
+      card.style.minHeight = '0px';
+      card.style.transition = 'none';
+      var cardH2 = card.offsetHeight; // ← 此时才是真实内容高度
+
+      // 恢复至原始高度（无动画），准备过渡
+      card.style.minHeight = cardH1 + 'px';
+      card.offsetHeight; // 强制重绘到位
+      card.style.transition = 'min-height 0.45s ease';
+
+      var shrink = cardH1 - cardH2;
+
+      // 启动收缩动画
+      if (shrink > 0) {
+        card.style.minHeight = cardH2 + 'px';
+      }
+    });
+
+    // 动画结束后清理
+    setTimeout(function() {
+      card.style.minHeight = '';
+      card.style.transition = '';
+    }, 500);
+  }
+
+  // 获取按钮当前尺寸
+  var bw = btnNo.offsetWidth;
+  var bh = btnNo.offsetHeight;
+  var padding = 10;
+  var maxX = Math.max(padding, window.innerWidth - bw - padding);
+  var maxY = Math.max(padding, window.innerHeight - bh - padding);
+
+  // 获取"我愿意"按钮位置，躲避它
+  var yesBtn = document.querySelector('.btn-yes');
+  var yesRect = yesBtn.getBoundingClientRect();
+  var x, y, tries = 0;
+  do {
+    x = padding + Math.random() * (maxX - padding);
+    y = padding + Math.random() * (maxY - padding);
+    tries++;
+    // 如果与"我愿意"按钮重叠，重试（最多20次）
+  } while (tries < 20 &&
+           x + bw > yesRect.left - 20 &&
+           x < yesRect.right + 20 &&
+           y + bh > yesRect.top - 20 &&
+           y < yesRect.bottom + 20);
+
+  if (x < padding) x = padding;
+  if (y < padding) y = padding;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
+
+  btnNo.style.left = x + 'px';
+  btnNo.style.top  = y + 'px';
+
+  if (runawayCount >= 4) {
+    btnNo.textContent = '别跑啦 🥺';
+    btnNo.style.fontSize = '14px';
+    btnNo.style.padding = '10px 20px';
+  }
+  if (runawayCount >= 8) {
+    btnNo.textContent = '快点这里啦';
+    btnNo.style.color = '#d81b60';
+    btnNo.style.borderColor = '#e91e63';
+  }
+}
+
+// 窗口尺寸变化时修正按钮位置
+window.addEventListener('resize', function() {
+  if (!btnNoFleeing) return;
+  var bw = btnNo.offsetWidth;
+  var bh = btnNo.offsetHeight;
+  var padding = 10;
+  var maxX = Math.max(padding, window.innerWidth - bw - padding);
+  var maxY = Math.max(padding, window.innerHeight - bh - padding);
+  var curX = parseFloat(btnNo.style.left) || 0;
+  var curY = parseFloat(btnNo.style.top) || 0;
+  if (curX > maxX) btnNo.style.left = maxX + 'px';
+  if (curY > maxY) btnNo.style.top = maxY + 'px';
+  if (curX < padding) btnNo.style.left = padding + 'px';
+  if (curY < padding) btnNo.style.top = padding + 'px';
+});
+
+btnNo.addEventListener('click', function(e) {
+  // 只闪避，不弹窗
+  runAway();
+});
+
+// ==================== 告白成功 ====================
+function sayYes() {
+  // 同步布局：显示 overlay → 强制布局 → paint 前锁死高度，零闪现
+  var overlay = document.getElementById('overlay');
+  var card = document.querySelector('.success-card');
+
+  overlay.classList.add('show');
+  card.offsetHeight; // 同步布局
+
+  // card 是 position:relative，子元素 offsetTop 以卡片 padding-box 上沿为基准
+  var photoTitle = document.querySelector('.photo-section-title');
+  var dateEl = document.getElementById('successDate');
+  var titleTop = photoTitle.offsetTop;                     // 内容顶→标题顶
+  var titleBottom = titleTop + photoTitle.offsetHeight;    // 内容顶→标题底
+  var dateBottom = dateEl.offsetTop + dateEl.offsetHeight; // 内容顶→日期底
+
+  // border-box 总高 = 可视内容高 + paddingTop(40) + paddingBottom(40) + border(4)
+  var chrome = 84;
+  // 初始：可视内容从 0 到标题下沿，照片不可见
+  var initH = titleBottom + chrome + 4;
+  // 滚动目标：标题顶对齐卡片可视区顶
+  var scrollTarget = titleTop;
+  // 最终：可视内容从标题顶到日期下沿
+  var finalH = (dateBottom - titleTop) + chrome + 12;
+
+  card.style.maxHeight = 'none';
+  card.style.height = initH + 'px';
+
+  // 爱心爆发
+  for (var i = 0; i < 30; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H * 0.6,
+      size: 16 + Math.random() * 30,
+      speedY: -0.3 - Math.random() * 1.5,
+      speedX: -1 + Math.random() * 2,
+      opacity: 0.6 + Math.random() * 0.4,
+    });
+  }
+  document.getElementById('btns').style.display = 'none';
+  document.getElementById('typewriter').innerHTML = '💕 四周年快乐，我的周先生 💕';
+
+  // 1 秒后：高度 + 滚动同步动画，6 秒 easeInOutCubic
+  setTimeout(function() {
+    if (scrollTarget <= 0) return;
+    var start = null;
+    var duration = 6000;
+    function step(ts) {
+      if (!start) start = ts;
+      var elapsed = ts - start;
+      var p = Math.min(elapsed / duration, 1);
+      var ease = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      card.style.height = (initH + (finalH - initH) * ease) + 'px';
+      card.scrollTop = ease * scrollTarget;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, 1000);
+}
+
+// ==================== BGM（卡农 D大调 八音盒音色） ====================
+var audioCtx = null;
+var musicPlaying = false;
+var musicTimer = null;
+var musicBtn = document.getElementById('musicBtn');
+
+// 帕赫贝尔《D大调卡农》 — 精确节奏版本
+// 速度 ≈ 100 BPM：八分音符 = 0.3s，四分音符 = 0.6s，附点四分 = 0.9s，二分 = 1.2s
+var melody = [
+  // ── 第1小节（8个八分音符）──
+  [587.33, 0.3], [739.99, 0.3], [783.99, 0.3], [880.00, 0.3],  // D5 F#5 G5 A5
+  [739.99, 0.3], [783.99, 0.3], [880.00, 0.3], [739.99, 0.3],  // F#5 G5 A5 F#5
+
+  // ── 第2小节（6个八分 + 1个四分）──
+  [587.33, 0.3], [659.25, 0.3], [739.99, 0.3], [783.99, 0.3],  // D5 E5 F#5 G5
+  [739.99, 0.3], [659.25, 0.3], [587.33, 0.6],                   // F#5 E5 D5—
+
+  // ── 第3小节 ──
+  [440.00, 0.3], [587.33, 0.3], [659.25, 0.3], [739.99, 0.3],  // A4 D5 E5 F#5
+  [587.33, 0.3], [739.99, 0.3], [880.00, 0.3], [783.99, 0.3],  // D5 F#5 A5 G5
+
+  // ── 第4小节 ──
+  [739.99, 0.3], [659.25, 0.3], [587.33, 0.3], [554.37, 0.3],  // F#5 E5 D5 C#5
+  [587.33, 0.3], [659.25, 0.3], [739.99, 0.6],                   // D5 E5 F#5—
+
+  // ── 第5小节（高潮）──
+  [783.99, 0.3], [880.00, 0.3], [987.77, 0.3], [880.00, 0.3],  // G5 A5 B5 A5
+  [987.77, 0.3], [880.00, 0.3], [783.99, 0.3], [739.99, 0.3],  // B5 A5 G5 F#5
+
+  // ── 第6小节 ──
+  [783.99, 0.3], [739.99, 0.3], [659.25, 0.3], [587.33, 0.3],  // G5 F#5 E5 D5
+  [554.37, 0.3], [587.33, 0.6],                                  // C#5 D5—
+  [440.00, 0.3], [554.37, 0.3], [587.33, 0.6],                  // A4 C#5 D5—
+
+  // ── 第7小节（长音）──
+  [587.33, 0.6], [880.00, 0.6], [739.99, 0.6], [659.25, 0.6],  // D5 A5 F#5 E5
+
+  // ── 第8小节 ──
+  [440.00, 0.6], [659.25, 0.6], [554.37, 0.6], [587.33, 0.6],  // A4 E5 C#5 D5
+
+  // ── 尾声 ──
+  [587.33, 0.6], [783.99, 0.6], [659.25, 0.6], [739.99, 0.6],  // D5 G5 E5 F#5
+  [880.00, 0.6], [739.99, 0.6], [587.33, 0.6], [659.25, 0.6],  // A5 F#5 D5 E5
+  [440.00, 0.9], [554.37, 0.3], [587.33, 1.2],                   // A4 C#5 D5——
+];
+
+var melodyIndex = 0;
+
+function playNote(freq, duration) {
+  if (!audioCtx) return;
+
+  var t = audioCtx.currentTime;
+  var osc = audioCtx.createOscillator();
+  var gain = audioCtx.createGain();
+
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+
+  // 八音盒包络：迅起 → 中速衰减 → 尾音
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(0.25, t + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.10, t + duration * 0.3);
+  gain.gain.exponentialRampToValueAtTime(0.008, t + duration * 0.9);
+  gain.gain.setValueAtTime(0, t + duration);
+
+  // 倍频泛音 → 八音盒金属质感
+  var osc2 = audioCtx.createOscillator();
+  var gain2 = audioCtx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.value = freq * 2;
+  gain2.gain.setValueAtTime(0, t);
+  gain2.gain.linearRampToValueAtTime(0.06, t + 0.01);
+  gain2.gain.exponentialRampToValueAtTime(0.008, t + duration * 0.45);
+  gain2.gain.setValueAtTime(0, t + duration);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc2.connect(gain2);
+  gain2.connect(audioCtx.destination);
+
+  osc.start(t);
+  osc.stop(t + duration + 0.05);
+  osc2.start(t);
+  osc2.stop(t + duration + 0.05);
+}
+
+function playMelodyNote() {
+  if (!musicPlaying) return;
+
+  var note = melody[melodyIndex];
+  playNote(note[0], note[1]);
+
+  melodyIndex++;
+  if (melodyIndex >= melody.length) {
+    melodyIndex = 0;
+    // 循环间短休止
+    musicTimer = setTimeout(playMelodyNote, 500);
+  } else {
+    musicTimer = setTimeout(playMelodyNote, note[1] * 1000 + 50);
+  }
+}
+
+function startMusic() {
+  if (musicPlaying) return;
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  musicPlaying = true;
+  melodyIndex = 0;
+  musicBtn.textContent = '🎵';
+  musicBtn.classList.remove('off');
+  playMelodyNote();
+}
+
+function stopMusic() {
+  musicPlaying = false;
+  if (musicTimer) clearTimeout(musicTimer);
+  musicBtn.textContent = '🔇';
+  musicBtn.classList.add('off');
+}
+
+function toggleMusic() {
+  if (musicPlaying) { stopMusic(); }
+  else { startMusic(); }
+}
+
+// ==================== 成功弹窗：填写日期 ====================
+(function() {
+  var now = new Date();
+  var y = now.getFullYear();
+  var m = now.getMonth() + 1;
+  var d = now.getDate();
+  document.getElementById('successDate').textContent =
+    '—— ' + y + '年' + (m < 10 ? '0' : '') + m + '月' + (d < 10 ? '0' : '') + d + '日 ——';
+})();
+
+// ==================== 点击/触摸 爱心特效 ====================
+(function() {
+  var heartEmojis = ['❤️','💕','💗','💖','💝','💓'];
+  var touchFired = false;
+  function spawnHeart(x, y) {
+    var el = document.createElement('span');
+    el.className = 'click-heart';
+    el.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+    document.body.appendChild(el);
+    setTimeout(function() { el.remove(); }, 1300);
+  }
+  document.addEventListener('touchstart', function(e) {
+    touchFired = true;
+    var t = e.touches[0];
+    if (t) spawnHeart(t.clientX - 14, t.clientY - 14);
+    // 300ms 后恢复，避免之后的正常 click 被屏蔽
+    setTimeout(function() { touchFired = false; }, 300);
+  }, { passive: true });
+  document.addEventListener('click', function(e) {
+    if (touchFired) return; // 触摸引发的合成 click，跳过
+    spawnHeart(e.clientX - 14, e.clientY - 14);
+  });
+})();
+
+// 首次用户交互时自动播放（绕过浏览器策略）
+var musicAutoStarted = false;
+document.addEventListener('click', function autoPlayOnce(e) {
+  if (!musicAutoStarted) {
+    if (e.target === musicBtn || musicBtn.contains(e.target)) return;
+    musicAutoStarted = true;
+    startMusic();
+  }
+}, { once: false });
+</script>
+
+</body>
+</html>
